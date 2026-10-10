@@ -1,0 +1,44 @@
+<main class="installer">
+    <header class="installer__header">
+        <div class="installer__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+        </div>
+        <h1 class="installer__title">Update Installing</h1>
+    </header>
+
+    <section class="versions" aria-label="Version chain">
+        <div class="versions__item">
+            <span class="versions__label">Current</span>
+            <span class="versions__value" id="currentVersion">&lt;target_version&gt;</span>
+        </div>
+        <div class="versions__arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+            </svg>
+        </div>
+        <div class="versions__item">
+            <span class="versions__label">New</span>
+            <span class="versions__value versions__value--accent" id="newVersion">&lt;source_version&gt;</span>
+        </div>
+    </section>
+
+    <section class="progress" id="progressContainer" aria-hidden="true">
+        <div class="progress__meta">
+            <span class="progress__status" id="statusText">Waiting…</span>
+            <span class="progress__percent" id="progressPercent">0%</span>
+        </div>
+        <div class="progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBar">
+            <div class="progress__fill" id="progressFill"></div>
+        </div>
+    </section>
+
+    <footer class="installer__actions">
+        <button type="button" class="btn btn--ghost" id="closeBtn">Close</button>
+        <button type="button" class="btn btn--primary" id="installBtn">Install</button>
+    </footer>
+</main>

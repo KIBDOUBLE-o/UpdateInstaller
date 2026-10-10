@@ -1,0 +1,13 @@
+{
+    "source": "http://kibdouble.duckdns.org/host-deck/latest",
+    "fileName": "latest.json",
+    "extractTarget": ".",
+    "target": [
+        "example",
+        "folder"
+    ],
+    "productName": "Unnamed",
+    "downloadedAction": "none",
+    "currentVersion": "0.0.0",
+    "newVersion": "1.0.0"
+}

@@ -1,0 +1,321 @@
+/* ===== Reset ===== */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== Variables ===== */
+:root {
+    --bg: #0a0a0a;
+    --surface: #141414;
+    --border: #262626;
+    --border-hover: #333;
+    --text: #f5f5f5;
+    --text-muted: #8a8a8a;
+    --text-dim: #5a5a5a;
+    --accent: #ffffff;
+    --danger: #ff5c5c;
+    --radius-sm: 10px;
+    --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== Base ===== */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(
+        circle at 50% 0%,
+        rgba(255, 255, 255, 0.05),
+        transparent 55%
+    );
+    pointer-events: none;
+}
+
+/* ===== Container ===== */
+.installer {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.4s ease;
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Header ===== */
+.installer__header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.installer__icon {
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 18px;
+    display: grid;
+    place-items: center;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.installer__icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.installer__title {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+/* ===== Versions ===== */
+.versions {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+}
+
+.versions__item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.versions__item:last-child {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.versions__label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    font-weight: 500;
+}
+
+.versions__value {
+    font-family: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color var(--transition);
+}
+
+.versions__value--accent {
+    color: var(--text);
+}
+
+/* Подсветка при обновлении значения */
+.versions__value.is-updated {
+    animation: flash 0.6s ease;
+}
+
+@keyframes flash {
+    0%   { color: var(--accent); }
+    100% { color: inherit; }
+}
+
+.versions__arrow {
+    width: 20px;
+    height: 20px;
+    color: var(--text-dim);
+    display: grid;
+    place-items: center;
+}
+
+.versions__arrow svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* ===== Progress ===== */
+.progress {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    margin-bottom: 0;
+    transition: opacity 0.3s ease, max-height 0.3s ease, margin 0.3s ease;
+}
+
+.progress.is-visible {
+    opacity: 1;
+    max-height: 100px;
+    margin-bottom: 28px;
+}
+
+.progress__meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+
+.progress__status {
+    color: var(--text-muted);
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: 12px;
+}
+
+.progress__percent {
+    color: var(--text);
+    font-family: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+}
+
+.progress__track {
+    height: 4px;
+    background: var(--surface);
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress__fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    border-radius: 999px;
+    transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.progress__fill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.35),
+        transparent
+    );
+    animation: shimmer 1.6s infinite;
+}
+
+@keyframes shimmer {
+    from { transform: translateX(-100%); }
+    to   { transform: translateX(100%); }
+}
+
+.progress__fill.is-complete::after {
+    animation: none;
+}
+
+/* ===== Buttons ===== */
+.installer__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.btn {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 12px 18px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background var(--transition), border-color var(--transition),
+                color var(--transition), transform var(--transition),
+                opacity var(--transition);
+    letter-spacing: 0.01em;
+    user-select: none;
+}
+
+.btn:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
+.btn--primary {
+    background: var(--accent);
+    color: #000;
+    border-color: var(--accent);
+}
+
+.btn--primary:hover:not(:disabled) {
+    background: #e5e5e5;
+    border-color: #e5e5e5;
+}
+
+.btn--ghost {
+    background: transparent;
+    color: var(--text);
+    border-color: var(--border-hover);
+}
+
+.btn--ghost:hover:not(:disabled) {
+    background: var(--surface);
+    border-color: #444;
+}
+
+/* Close button in confirm state */
+.btn--ghost.is-confirming {
+    color: var(--danger);
+    border-color: var(--danger);
+    background: rgba(255, 92, 92, 0.06);
+}
+
+.btn--ghost.is-confirming:hover {
+    background: rgba(255, 92, 92, 0.12);
+    border-color: var(--danger);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 420px) {
+    .versions {
+        padding: 14px 0;
+    }
+    .versions__value {
+        font-size: 12px;
+    }
+}
