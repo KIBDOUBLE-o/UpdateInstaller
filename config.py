@@ -40,3 +40,7 @@ class Config:
     @classmethod
     def get_extract_target(cls):
         return cls._config.get("extractTarget", ".")
+
+    @classmethod
+    def get_cleanup_targets(cls):
+        return cls._config.get("cleanup", [])
